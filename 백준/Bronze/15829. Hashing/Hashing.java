@@ -9,17 +9,14 @@ public class Main {
 
         long ans = 0;
         long M = 1234567891;
-        long r = 31;
+        long r = 1;
 
         for(int i=0;i<L;i++) {
-            long temp = ((long)s.charAt(i) - 96)*(long)(Math.pow(r,i));
-            ans += temp;
+            ans += (s.charAt(i) - 96) * r;
+            r = r * 31 % M;
         }
 
-        if (ans >= M)
-            ans /= M;
-
-        System.out.println(ans);
+        System.out.println(ans % M);
 
     }
 
