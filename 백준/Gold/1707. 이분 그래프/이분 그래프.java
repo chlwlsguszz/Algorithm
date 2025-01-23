@@ -57,7 +57,7 @@ public class Main {
                 return;
             }
             if (color[next] == 0) {
-                dfs(next, 3-c);
+                dfs(next, (c == 1) ? 2 : 1);
             }
         }
     }
