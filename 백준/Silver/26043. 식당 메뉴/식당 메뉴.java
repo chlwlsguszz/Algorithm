@@ -4,21 +4,11 @@ import java.util.*;
 public class Main {
     static BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
     static StringTokenizer st;
-    static Queue<Student> studentQ = new LinkedList<>();
+    static Queue<String[]> studentQ = new LinkedList<>();
     static Queue<String> cafeQ = new LinkedList<>();
     static ArrayList<Integer> listA = new ArrayList<>();
     static ArrayList<Integer> listB = new ArrayList<>();
     static ArrayList<Integer> listC = new ArrayList<>();
-
-    static class Student {
-        int id;
-        String menu;
-
-        public Student(int id, String menu) {
-            this.id = id;
-            this.menu = menu;
-        }
-    }
 
     public static void main(String[] args) throws IOException {
         int N = Integer.parseInt(br.readLine());
@@ -26,9 +16,8 @@ public class Main {
             st = new StringTokenizer(br.readLine());
             String type = st.nextToken();
             if(type.equals("1")) {
-                int a = Integer.parseInt(st.nextToken());
-                String b = st.nextToken();
-                studentQ.add(new Student(a,b));
+                String[] student = {st.nextToken(), st.nextToken()};
+                studentQ.add(student);
             }
             else {
                 String b = st.nextToken();
@@ -36,17 +25,17 @@ public class Main {
             }
 
             if(!cafeQ.isEmpty() && !studentQ.isEmpty()) {
-                Student student = studentQ.poll();
+                String[] student = studentQ.poll();
                 String menu = cafeQ.poll();
-                if (student.menu.equals(menu)) {
-                    listA.add(student.id);
+                if (student[1].equals(menu)) {
+                    listA.add(Integer.parseInt(student[0]));
                 } else
-                    listB.add(student.id);
+                    listB.add(Integer.parseInt(student[0]));
             }
         }
 
-        for(Student student: studentQ) {
-            listC.add(student.id);
+        for(String[] student: studentQ) {
+            listC.add(Integer.parseInt(student[0]));
         }
 
         listA.sort(Comparator.naturalOrder());
