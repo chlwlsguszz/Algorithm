@@ -25,16 +25,10 @@ public class Main {
     }
 
     static void blackjack() {
-        for(int i=0;i<N;i++) {
-            int card1 = cardArr[i];
-            for(int j=0;j<N;j++) {
-                int card2 = cardArr[j];
-                if(card1==card2) continue;
-                for(int k=0;k<N;k++) {
-                    int card3 = cardArr[k];
-                    if(card1==card3 || card2==card3) continue;
-
-                    int sum = card1 + card2 + card3;
+        for(int i=0;i<N-2;i++) {
+            for(int j=i+1;j<N-1;j++) {
+                for(int k=j+1;k<N;k++) {
+                    int sum = cardArr[i] + cardArr[j] + cardArr[k];
                     if(M >= sum && M - sum < min) {
                         min = M - sum;
                         res = sum;
