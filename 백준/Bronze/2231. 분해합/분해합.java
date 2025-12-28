@@ -1,25 +1,30 @@
-import java.io.*;
-import java.util.*;
+import java.io.BufferedReader;
+import java.io.IOException;
 
 public class Main {
-    static BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-    static StringTokenizer st;
-
     public static void main(String[] args) throws IOException {
-        int N = Integer.parseInt(br.readLine());
-        System.out.println(searchConstructor(N));
-    }
+        BufferedReader br = new BufferedReader(new java.io.InputStreamReader(System.in));
 
-    static int searchConstructor(int n) {
-        for(int i=1;i<n;i++) {
-            String s = Integer.toString(i);
-            int sum = 0;
-            for(int j=0;j<s.length();j++) {
-                sum += s.charAt(j) - '0';
+        String s = br.readLine();
+        int N = Integer.parseInt(s);
+        int result = 0;
+
+        for(int i=1;i<=N;i++) {
+            int current = i;
+
+            int num = i;
+            while(num > 0) {
+                current += num % 10;
+                num /= 10;
             }
-            if(i+sum==n) return i;
+            if (current==N) {
+                result = i;
+                break;
+            }
         }
-        return 0;
+
+        System.out.println(result);
+
+
     }
 }
-
