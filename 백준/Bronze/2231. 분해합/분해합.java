@@ -9,7 +9,7 @@ public class Main {
         int N = Integer.parseInt(s);
         int result = 0;
 
-        for(int i=1;i<=N;i++) {
+        for(int i=Math.max(1, N-9*s.length());i<=N;i++) {
             int current = i;
 
             int num = i;
