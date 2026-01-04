@@ -1,57 +1,52 @@
-import java.io.*;
-import java.util.StringTokenizer;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.util.*;
 
 public class Main {
-    static BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-    static StringTokenizer st;
-
-    static int[][] intArray;
-    static int min = 64;
+    static int N, M;
+    static char board[][];
 
     public static void main(String[] args) throws IOException {
-        st = new StringTokenizer(br.readLine());
-        int N = Integer.parseInt(st.nextToken());
-        int M = Integer.parseInt(st.nextToken());
 
-        intArray = new int[N][M];
+        BufferedReader br = new BufferedReader(new java.io.InputStreamReader(System.in));
+        StringTokenizer st = new StringTokenizer(br.readLine());
+
+        N = Integer.parseInt(st.nextToken());
+        M = Integer.parseInt(st.nextToken());
+        board = new char[N][M];
 
         for(int i=0;i<N;i++) {
-            String s = br.readLine();
+            String line = br.readLine();
             for(int j=0;j<M;j++) {
-                if(s.charAt(j)=='B')
-                    intArray[i][j] = 1;
-                else
-                    intArray[i][j] = 0;
+                board[i][j] = line.charAt(j);
             }
         }
 
+        int min = Integer.MAX_VALUE;
 
-        for(int i=0;i<N-7;i++) {
+        for(int i=0;i<N-7;i++){
             for(int j=0;j<M-7;j++) {
-                check(i,j);
+                min = Math.min(min, checkBoard(i,j));
             }
         }
 
         System.out.println(min);
+
     }
 
-    static void check(int x, int y) {
-        int count = 0;
-        int color = intArray[x][y];
-
+    public static int checkBoard(int x, int y) {
+        int count=0;
         for(int i=x;i<x+8;i++) {
             for(int j=y;j<y+8;j++) {
-                if(intArray[i][j]!=color)
-                    count++;
-                color = (color+1)%2;
+                if((i+j)%2==0) {
+                   if(board[i][j]!='W')
+                       count++;
+                } else {
+                    if(board[i][j]!='B')
+                        count++;
+                }
             }
-            color = (color+1)%2;
         }
-
-        count = Math.min(count, 64 - count);
-        min = Math.min(min, count);
+        return Math.min(count, 64-count);
     }
 }
-
-
-
