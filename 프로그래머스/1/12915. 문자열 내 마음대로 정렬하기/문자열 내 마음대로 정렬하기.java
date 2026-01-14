@@ -8,7 +8,7 @@ class Solution {
             else
                 return s1.charAt(n) - s2.charAt(n);
         });
-        String[] answer = strings;
-        return answer;
+        
+        return strings;
     }
 }
