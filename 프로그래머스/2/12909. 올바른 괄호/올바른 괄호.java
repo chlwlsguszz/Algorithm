@@ -1,0 +1,21 @@
+import java.util.*;
+
+class Solution {
+    boolean solution(String s) {
+        Deque<Character> stack = new ArrayDeque<>();
+
+        for(char c : s.toCharArray()) {
+            if(c == '(') {
+                stack.push(c);
+            }
+            else if (c==')') {
+                if(stack.isEmpty())
+                    return false;
+                else stack.pop();
+            }
+        }
+        if(!stack.isEmpty())
+            return false;
+        return true;
+    }
+}
