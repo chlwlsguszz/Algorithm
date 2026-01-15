@@ -5,9 +5,7 @@ class Solution {
         Queue<Integer> queue = new ArrayDeque<>();
         
         for(int i=0;i<progresses.length;i++) {
-            int remainTime = (100 - progresses[i]) / speeds[i]; 
-            if( (100-progresses[i]) % speeds[i] != 0) 
-                remainTime++;
+            int remainTime = (100 - progresses[i] + speeds[i] - 1 ) / speeds[i]; 
             queue.offer(remainTime);
         }
         
