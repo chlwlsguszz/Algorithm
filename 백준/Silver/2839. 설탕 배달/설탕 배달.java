@@ -12,8 +12,7 @@ public class Main {
         int smallBag = 3; // 3kg
         int i = N/bigBag;
         while(i >= 0) {
-            int restSugar = N;
-            if (i!=0) restSugar -= (bigBag*i);
+            int restSugar = N - (bigBag*i);
             if (restSugar % smallBag == 0) {
                 System.out.println(i + (restSugar/smallBag));
                 return;
