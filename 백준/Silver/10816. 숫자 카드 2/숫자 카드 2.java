@@ -24,7 +24,7 @@ public class Main {
         for (int i=0;i<M;i++) {
             int x = Integer.parseInt(st.nextToken());
             int ans = hashMap.getOrDefault(x, 0);
-            sb.append(ans+" ");
+            sb.append(ans).append(" ");
         }
         System.out.println(sb);
     }
