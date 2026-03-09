@@ -23,7 +23,7 @@ public class Main {
 
     static void checkPrime(boolean[] array, int N) {
         array[1] = false;
-        for(int i=2;i<=1000000;i++) {
+        for(int i=2;i<=Math.sqrt(N)+1;i++) {
             if(array[i]) {
                 int j = 2;
                 while(i * j <= N) {
