@@ -9,7 +9,8 @@ public class Main {
 
         int T = Integer.parseInt(br.readLine());
         Deque<Document> queue = new ArrayDeque<>();
-        HashMap<Integer, Integer> map = new HashMap<>();
+        int[] priorityArray = new int[10];
+        Arrays.fill(priorityArray, 0);
 
 
         for(int t=0;t<T;t++) {
@@ -22,18 +23,18 @@ public class Main {
                 int p = Integer.parseInt(st.nextToken());
                 Document doc = new Document();
                 doc.priority = p;
-                map.put(p, map.getOrDefault(p, 0)+1);
+                priorityArray[p]++;
                 if(i==M) doc.target = true;
                 queue.offer(doc);
             }
 
 
             int count = 0;
+            int maxPriority = 1;
             while(!queue.isEmpty()) {
                 Document doc = queue.poll();
-                int maxPriority = 1;
                 for(int i=9;i>0;i--)
-                    if(map.getOrDefault(i, 0) != 0) {
+                    if(priorityArray[i]>0) {
                         maxPriority = i;
                         break;
                     }
@@ -42,7 +43,7 @@ public class Main {
                 }
                 else {
                     count++;
-                    map.put(doc.priority, map.getOrDefault(doc.priority, 0) - 1);
+                    priorityArray[doc.priority]--;
                     if (doc.target) {
                         System.out.println(count);
                         break;
@@ -50,7 +51,7 @@ public class Main {
                 }
             }
             queue.clear();
-            map.clear();
+            Arrays.fill(priorityArray, 0);
         }
 
        }
