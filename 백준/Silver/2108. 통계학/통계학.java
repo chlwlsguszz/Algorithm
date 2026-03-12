@@ -26,12 +26,6 @@ public class Main {
         Arrays.sort(array);
 
         int middleValue = array[n/2];
-//        if(n%2==0)
-//            middleValue = (array[n/2] + array[(n/2)-1])/2;
-//        else
-//            middleValue = array[n/2];
-
-
 
         int maxFreq = 0;
         ArrayList<Integer> result = new ArrayList<>();
