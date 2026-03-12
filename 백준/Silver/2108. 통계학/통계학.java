@@ -25,11 +25,11 @@ public class Main {
 
         Arrays.sort(array);
 
-        int middleValue;
-        if(n%2==0)
-            middleValue = (array[n/2] + array[(n/2)-1])/2;
-        else
-            middleValue = array[n/2];
+        int middleValue = array[n/2];
+//        if(n%2==0)
+//            middleValue = (array[n/2] + array[(n/2)-1])/2;
+//        else
+//            middleValue = array[n/2];
 
 
 
