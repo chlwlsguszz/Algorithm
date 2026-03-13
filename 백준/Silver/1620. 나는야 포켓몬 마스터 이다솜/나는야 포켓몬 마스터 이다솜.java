@@ -5,17 +5,18 @@ public class Main {
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringTokenizer st;
-        HashMap<Integer,String> idMap = new HashMap<>();
-        HashMap<String,Integer> nameMap = new HashMap<>();
 
         st = new StringTokenizer(br.readLine());
         int N = Integer.parseInt(st.nextToken());
         int M = Integer.parseInt(st.nextToken());
 
+        String nameArr[] = new String[N+1];
+        HashMap<String,Integer> nameIdMap = new HashMap<>();
+
         for (int i=1;i<=N;i++) {
             String name = br.readLine();
-            idMap.put(i,name);
-            nameMap.put(name, i);
+            nameArr[i] = name;
+            nameIdMap.put(name, i);
         }
 
         StringBuilder sb = new StringBuilder();
@@ -24,11 +25,11 @@ public class Main {
 
             if(Character.isDigit(s.charAt(0))) {
                 int n = Integer.parseInt(s);
-                sb.append(idMap.get(n)).append("\n");
+                sb.append(nameArr[n]).append("\n");
             }
-            
+
             else
-                sb.append(nameMap.get(s)).append("\n");
+                sb.append(nameIdMap.get(s)).append("\n");
         }
 
 
