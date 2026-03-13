@@ -21,12 +21,14 @@ public class Main {
         StringBuilder sb = new StringBuilder();
         for(int i=0;i<M;i++) {
             String s = br.readLine();
-            try {
+
+            if(Character.isDigit(s.charAt(0))) {
                 int n = Integer.parseInt(s);
                 sb.append(idMap.get(n)).append("\n");
-            }catch(NumberFormatException e) {
-                sb.append(nameMap.get(s)).append("\n");
             }
+            
+            else
+                sb.append(nameMap.get(s)).append("\n");
         }
 
 
