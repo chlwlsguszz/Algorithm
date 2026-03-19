@@ -17,18 +17,12 @@ public class Main {
                 String s = st.nextToken();
                 hashMap.put(s, hashMap.getOrDefault(s,0) + 1);
             }
-            ArrayList<Integer> values = new ArrayList<>(hashMap.values());
-            if(values.isEmpty())
-                System.out.println(0);
-            else if(values.size() == 1)
-                System.out.println(values.get(0));
-            else {
-                int result = 1;
-                for(int x : values) {
-                    result *= x+1;
-                }
-                System.out.println(result-1);
+
+            int result = 1;
+            for(int x : hashMap.values()) {
+                result *= x+1;
             }
+            System.out.println(result-1);
             hashMap.clear();
         }
 
