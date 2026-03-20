@@ -58,23 +58,20 @@ public class Main {
     }
 
     static void bfs(int V) {
-        visited[V] = true;
-        sb.append(V).append(" ");
-
         ArrayDeque<Integer> queue = new ArrayDeque<>();
 
-        for(int target: edges.get(V))
-            queue.offer(target);
+        queue.offer(V);
+        visited[V] = true;
 
         while(!queue.isEmpty()) {
             int x = queue.poll();
-            if(!visited[x]) {
-                visited[x] = true;
-                sb.append(x).append(" ");
-            }
+            sb.append(x).append(" ");
+            
             for(int target: edges.get(x))
-                if(!visited[target])
+                if(!visited[target]) {
+                    visited[target] = true;
                     queue.offer(target);
+                }
         }
     }
 }
