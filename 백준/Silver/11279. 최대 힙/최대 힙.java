@@ -1,32 +1,26 @@
-import java.io.BufferedReader;
-import java.io.IOException;
+import java.io.*;
 import java.util.*;
 
 public class Main {
-
-
-    public static void main(String[] args) throws IOException {
-
-        BufferedReader br = new BufferedReader(new java.io.InputStreamReader(System.in));
+    public static void main(String[] args) throws IOException{
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        PriorityQueue<Integer> priorityQueue = new PriorityQueue<>(Comparator.reverseOrder());
+        StringBuilder sb = new StringBuilder();
         int N = Integer.parseInt(br.readLine());
-
-        PriorityQueue<Integer> maxHeap = new PriorityQueue<>((a,b) -> b-a);
-
         for(int i=0;i<N;i++) {
             int x = Integer.parseInt(br.readLine());
-            if(x == 0) {
-                if (maxHeap.isEmpty())
-                    System.out.println(0);
+            if(x==0) {
+                if(priorityQueue.isEmpty())
+                    sb.append(0).append("\n");
                 else
-                    System.out.println(maxHeap.poll());
+                    sb.append(priorityQueue.poll()).append("\n");
             }
             else
-                maxHeap.offer(x);
+                priorityQueue.add(x);
         }
+
+        System.out.println(sb);
 
     }
 
-
 }
-
-
