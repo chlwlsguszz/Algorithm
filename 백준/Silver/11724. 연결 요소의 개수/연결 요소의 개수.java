@@ -3,7 +3,7 @@ import java.util.*;
 
 public class Main {
     static boolean[] visited;
-    static int[][] graph;
+    static ArrayList<ArrayList<Integer>> graph;
     static int N, M;
 
 
@@ -14,21 +14,25 @@ public class Main {
         N = Integer.parseInt(st.nextToken());
         M = Integer.parseInt(st.nextToken());
 
-        graph = new int[N+1][N+1];
+        graph = new ArrayList<>();
         visited = new boolean[N+1];
+
+        for(int i=0;i<N+1;i++) {
+            graph.add(new ArrayList<Integer>());
+        }
 
         for(int i=0;i<M;i++) {
             st = new StringTokenizer(br.readLine());
             int u = Integer.parseInt(st.nextToken());
             int v = Integer.parseInt(st.nextToken());
 
-            graph[u][v] = 1;
-            graph[v][u] = 1;
+            graph.get(u).add(v);
+            graph.get(v).add(u);
         }
 
         int count = 0;
         for(int i=1;i<=N;i++) {
-            if(!visited[i]) {
+            if (!visited[i]) {
                 dfs(i);
                 count++;
             }
@@ -39,14 +43,15 @@ public class Main {
 
     static void dfs(int x) {
         ArrayDeque<Integer> stack = new ArrayDeque<>();
-        stack.add(x);
+        visited[x] = true;
+        stack.push(x);
 
         while(!stack.isEmpty()) {
             int target = stack.pop();
-            for (int i = 1; i <= N; i++) {
-                if (!visited[i] && graph[target][i] == 1) {
-                    visited[i]=true;
-                    stack.add(i);
+            for (int y : graph.get(target)) {
+                if (!visited[y]) {
+                    visited[y]=true;
+                    stack.push(y);
                 }
             }
         }
