@@ -17,17 +17,12 @@ public class Main {
         int[] sortedArray = array.clone();
         Arrays.sort(sortedArray);
 
-        LinkedHashSet<Integer> linkedHashSet = new LinkedHashSet<>();
-
-        for(int i=0;i<N;i++) {
-            linkedHashSet.add(sortedArray[i]);
-        }
-
         HashMap<Integer, Integer> hashMap = new HashMap<>();
 
         int count = 0;
-        for(int x : linkedHashSet) {
-            hashMap.put(x,count++);
+        for(int i=0;i<N;i++) {
+            if(!hashMap.containsKey(sortedArray[i]))
+                hashMap.put(sortedArray[i],count++);
         }
 
 
