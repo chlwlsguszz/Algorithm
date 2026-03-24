@@ -38,11 +38,16 @@ public class Main {
     }
 
     static void dfs(int x) {
-        visited[x] = true;
+        ArrayDeque<Integer> stack = new ArrayDeque<>();
+        stack.add(x);
 
-        for(int i=1;i<=N;i++) {
-            if(!visited[i] && graph[x][i] == 1) {
-                dfs(i);
+        while(!stack.isEmpty()) {
+            int target = stack.pop();
+            for (int i = 1; i <= N; i++) {
+                if (!visited[i] && graph[target][i] == 1) {
+                    visited[i]=true;
+                    stack.add(i);
+                }
             }
         }
     }
