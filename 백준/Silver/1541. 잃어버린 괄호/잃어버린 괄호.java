@@ -3,42 +3,34 @@ import java.util.*;
 
 public class Main {
 
-    public static void main(String[] args) throws IOException{
+    public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+
         String s = br.readLine();
-        ArrayDeque<Integer> queue = new ArrayDeque<Integer>();
+
         int sum = 0;
-        boolean flag = false;
 
-        int num = 0;
+        String[] minusSplit = s.split("-");
 
-        for(int i=0;i<s.length();i++) {
-            char c = s.charAt(i);
+        sum += plusSum(minusSplit[0]);
 
-            if(c == '+' || c == '-') {
-                if (!flag)
-                    sum += num;
-                else
-                    sum -= num;
-
-                if(c=='-')
-                    flag = true;
-                
-                num = 0;
-            }
-
-            else {
-                num = num * 10 + (c-'0');
-            }
-
+        for(int i=1;i<minusSplit.length;i++) {
+            sum -= plusSum(minusSplit[i]);
         }
-
-        if (!flag)
-            sum += num;
-        else
-            sum -= num;
 
         System.out.println(sum);
 
     }
+
+    static int plusSum(String s) {
+        String[] plusSplit = s.split("\\+");
+
+        int sum = 0;
+        for(int i=0;i<plusSplit.length;i++) {
+            sum += Integer.parseInt(plusSplit[i]);
+        }
+
+        return sum;
+    }
+
 }
