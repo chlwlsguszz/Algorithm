@@ -5,16 +5,15 @@ import java.util.*;
 public class Main {
 
     static int[][] map;
-    static boolean[][] checked;
     static int[] result = new int[2];
+    static int N;
 
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
-        int N = Integer.parseInt(br.readLine());
+        N = Integer.parseInt(br.readLine());
 
         map = new int[N][N];
-        checked = new boolean[N][N];
 
         for(int i=0;i<N;i++) {
             StringTokenizer st = new StringTokenizer(br.readLine());
@@ -23,38 +22,38 @@ public class Main {
             }
         }
 
-        int gap = N;
-        while(gap > 0) {
-            for(int i=0;i<N;i+=gap) {
-                for(int j=0;j<N;j+=gap) {
-                    if(!checked[i][j])
-                        search(i, j, gap);
-                }
-            }
-            gap/=2;
-        }
+        dfs(0,0,N);
 
         System.out.println(result[0]);
         System.out.println(result[1]);
 
     }
 
-    static void search(int y, int x, int gap) {
+    static void dfs(int y, int x, int size) {
         int target = map[y][x];
-        for(int i=y;i<y+gap;i++) {
-            for(int j=x;j<x+gap;j++) {
-                if(target != map[i][j] || checked[i][j])
-                    return;
+
+        if(isSame(y, x, size)) {
+            result[target]++;
+            return;
+        }
+
+        int nextSize = size/2;
+        for(int i=y;i<y+size;i+=nextSize) {
+            for(int j=x;j<x+size;j+=nextSize) {
+                dfs(i,j,nextSize);
             }
         }
 
-        // 여기까지 왔다면 성공
-        result[target]++;
-        for(int i=y;i<y+gap;i++) {
-            for(int j=x;j<x+gap;j++) {
-                checked[i][j] = true;
+    }
+
+    static boolean isSame(int y, int x, int size) {
+        int target = map[y][x];
+        for(int i=y; i<y+size; i++) {
+            for(int j=x; j<x+size; j++) {
+                if(target != map[i][j]) return false;
             }
         }
+        return true;
     }
 
 }
