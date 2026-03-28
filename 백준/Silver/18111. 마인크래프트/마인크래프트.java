@@ -5,7 +5,7 @@ public class Main {
     static int N, M, B;
     static int[][] map;
 
-    public static void main(String[] args) throws Exception {
+    public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringTokenizer st = new StringTokenizer(br.readLine());
 
@@ -15,50 +15,53 @@ public class Main {
 
         map = new int[N][M];
 
-        int min = 256, max = 0;
-
+        int min = 256;
+        int max = 0;
         for(int i=0;i<N;i++) {
             st = new StringTokenizer(br.readLine());
             for(int j=0;j<M;j++) {
-                map[i][j] = Integer.parseInt(st.nextToken());
-                min = Math.min(min, map[i][j]);
-                max = Math.max(max, map[i][j]);
+                int x = Integer.parseInt(st.nextToken());
+                map[i][j] = x;
+                min = Math.min(min, x);
+                max = Math.max(max, x);
             }
         }
 
-        int answerTime = Integer.MAX_VALUE;
-        int answerHeight = 0;
+        int time = Integer.MAX_VALUE;
+        int height = 0;
+        for(int i=min;i<=max;i++) {
+            int checkResult = check(i);
+            if(checkResult <= time) {
+                time = checkResult;
+                height = i;
+            }
+        }
 
-        for(int h = min; h <= max; h++) {
-            int time = 0;
-            int block = B;
+        System.out.println(time + " " + height);
 
-            for(int i=0;i<N;i++) {
-                for(int j=0;j<M;j++) {
-                    int cur = map[i][j];
+    }
 
-                    if(cur > h) {
-                        int diff = cur - h;
-                        time += diff * 2;
-                        block += diff;
-                    } else if(cur < h) {
-                        int diff = h - cur;
-                        time += diff;
-                        block -= diff;
-                    }
+    static int check(int x) {
+        int block = B;
+        int time = 0;
+        for(int i=0;i<N;i++) {
+            for(int j=0;j<M;j++) {
+                if(map[i][j] > x) {
+                    int diff = map[i][j] - x;
+                    block += diff;
+                    time += diff*2;
+                }
+                else if(map[i][j] < x) {
+                    int diff = x - map[i][j];
+                    block -= diff;
+                    time += diff;
                 }
             }
-
-            if(block < 0) continue;
-
-            if(time < answerTime) {
-                answerTime = time;
-                answerHeight = h;
-            } else if(time == answerTime) {
-                answerHeight = Math.max(answerHeight, h);
-            }
         }
 
-        System.out.println(answerTime + " " + answerHeight);
+        if(block < 0) return Integer.MAX_VALUE;
+
+        return time;
     }
+
 }
