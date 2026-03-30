@@ -22,7 +22,6 @@ public class Main {
 
         while(right < N) {
             hashMap.put(arr[right],hashMap.getOrDefault(arr[right],0)+1);
-            right++;
 
             while(hashMap.size() > 2) {
                 hashMap.put(arr[left], hashMap.get(arr[left])-1);
@@ -31,7 +30,8 @@ public class Main {
                 left++;
             }
 
-            max = Math.max(max,right-left);
+            max = Math.max(max,right-left+1);
+            right++;
         }
 
         System.out.println(max);
