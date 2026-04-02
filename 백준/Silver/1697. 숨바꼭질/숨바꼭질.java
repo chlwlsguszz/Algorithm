@@ -18,23 +18,24 @@ public class Main {
         queue.offer(new int[]{N, 0});
         visited[N] = true;
 
-        while(true) {
+        while(!queue.isEmpty()) {
             int[] cur = queue.poll();
-            if(cur[0] == K) {
-                System.out.println(cur[1]);
+
+            int x = cur[0];
+            int time = cur[1];
+
+            if(x == K) {
+                System.out.println(time);
                 break;
             }
-            if(cur[0] - 1 >= 0 && !visited[cur[0]-1]) {
-                queue.offer(new int[]{cur[0] - 1, cur[1] + 1});
-                visited[cur[0] - 1] = true;
-            }
-            if(cur[0] + 1 <= 100000 && !visited[cur[0]+1]) {
-                queue.offer(new int[]{cur[0] + 1, cur[1] + 1});
-                visited[cur[0] + 1] = true;
-            }
-            if(cur[0] * 2 <= 100000 && !visited[cur[0]*2]) {
-                queue.offer(new int[]{cur[0] * 2, cur[1] + 1});
-                visited[cur[0] * 2] = true;
+
+            int[] nexts = new int[]{x-1, x+1, x*2};
+
+            for(int nx : nexts) {
+                if(nx >= 0 && nx <= 100000 && !visited[nx]) {
+                    visited[nx] = true;
+                    queue.offer(new int[]{nx, time+1});
+                }
             }
         }
     }
