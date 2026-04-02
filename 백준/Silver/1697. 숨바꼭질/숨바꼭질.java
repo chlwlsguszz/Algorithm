@@ -1,56 +1,43 @@
 import java.io.*;
-import java.util.Arrays;
-import java.util.LinkedList;
-import java.util.Queue;
-import java.util.StringTokenizer;
+import java.util.*;
 
 public class Main {
-
-    static BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-    static StringTokenizer st;
-
     static int N, K;
-    static int[] distance;
 
     public static void main(String[] args) throws IOException {
-        st = new StringTokenizer(br.readLine());
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringTokenizer st = new StringTokenizer(br.readLine());
 
         N = Integer.parseInt(st.nextToken());
         K = Integer.parseInt(st.nextToken());
 
-        distance = new int[100001]; // 0 <= N,K <= 100000
-        Arrays.fill(distance, -1);
+        boolean[] visited = new boolean[100001];
 
-        BFS();
-        System.out.println(distance[K]);
+        ArrayDeque<int[]> queue = new ArrayDeque<>();
 
-    }
+        queue.offer(new int[]{N, 0});
+        visited[N] = true;
 
-    static void BFS() {
-        Queue<Integer> q = new LinkedList<>();
-        q.add(N);
-        distance[N] = 0;
-
-        while (!q.isEmpty()) {
-            if (distance[K] != -1)
+        while(true) {
+            int[] cur = queue.poll();
+            if(cur[0] == K) {
+                System.out.println(cur[1]);
                 break;
-
-            int x = q.poll();
-
-            if (x - 1 >= 0 && distance[x - 1] == -1) {
-                q.add(x - 1);
-                distance[x - 1] = distance[x] + 1;
             }
-            if (x + 1 <= 100000 && distance[x + 1] == -1) {
-                q.add(x + 1);
-                distance[x + 1] = distance[x] + 1;
+            if(cur[0] - 1 >= 0 && !visited[cur[0]-1]) {
+                queue.offer(new int[]{cur[0] - 1, cur[1] + 1});
+                visited[cur[0] - 1] = true;
             }
-            if (x * 2 <= 100000 && distance[x * 2] == -1) {
-                q.add(x * 2);
-                distance[x * 2] = distance[x] + 1;
+            if(cur[0] + 1 <= 100000 && !visited[cur[0]+1]) {
+                queue.offer(new int[]{cur[0] + 1, cur[1] + 1});
+                visited[cur[0] + 1] = true;
+            }
+            if(cur[0] * 2 <= 100000 && !visited[cur[0]*2]) {
+                queue.offer(new int[]{cur[0] * 2, cur[1] + 1});
+                visited[cur[0] * 2] = true;
             }
         }
-
     }
+
 
 }
