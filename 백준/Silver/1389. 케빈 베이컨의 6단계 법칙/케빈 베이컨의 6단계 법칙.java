@@ -29,11 +29,7 @@ public class Main {
         int min = Integer.MAX_VALUE;
         int res = 1;
         for(int i=1;i<=N;i++) {
-            int distSum = 0;
-            for(int j=1;j<=N;j++) {
-                distSum += checkDist(i, j);
-                Arrays.fill(visited, false);
-            }
+            int distSum = bfs(i);
             if(min > distSum) {
                 min = distSum;
                 res = i;
@@ -49,26 +45,27 @@ public class Main {
 
     }
 
-    static int checkDist(int a, int b) {
+    static int bfs(int start) {
         ArrayDeque<int[]> queue = new ArrayDeque<>();
-        queue.offer(new int[]{a,0});
-        visited[a] = true;
-        int dist = 0;
+        queue.offer(new int[]{start,0});
+        visited[start] = true;
+        
+        int sum = 0;
 
         while(!queue.isEmpty()) {
-            int[] target = queue.poll();
-            if(target[0] == b) {
-                dist = target[1];
-                break;
-            }
-            for(int next : links.get(target[0])) {
+            int[] cur = queue.poll();
+            sum += cur[1];
+            
+            for(int next : links.get(cur[0])) {
                 if(!visited[next]) {
-                    queue.offer(new int[]{next, target[1]+1});
                     visited[next] = true;
+                    queue.offer(new int[]{next, cur[1]+1});
                 }
             }
         }
-        return dist;
+
+        Arrays.fill(visited, false);
+        return sum;
     }
 
 }
