@@ -21,10 +21,15 @@ public class Main {
         int count = 0;
 
         for(int i=0;i<M;i++) {
+            boolean match = true;
             if(S.charAt(i) == 'I' && (i + 2*N) < M) {
-                if(S.substring(i,i+2*N+1).equals(P)) {
-                    count++;
+                for(int j=0;j<P.length();j++) {
+                    if(S.charAt(i+j) != P.charAt(j)) {
+                        match = false;
+                        break;
+                    }
                 }
+                if(match) count++;
             }
         }
 
