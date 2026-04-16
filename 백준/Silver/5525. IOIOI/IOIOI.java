@@ -10,29 +10,24 @@ public class Main {
 
         String S = br.readLine();
 
-        StringBuilder sb = new StringBuilder();
-
-        sb.append("I");
-        for(int i=0;i<N;i++) {
-            sb.append("OI");
-        }
-
-        String P = sb.toString();
+        int result = 0;
         int count = 0;
+        for(int i=0;i<M-2;i++) {
 
-        for(int i=0;i<M;i++) {
-            boolean match = true;
-            if(S.charAt(i) == 'I' && (i + 2*N) < M) {
-                for(int j=0;j<P.length();j++) {
-                    if(S.charAt(i+j) != P.charAt(j)) {
-                        match = false;
-                        break;
-                    }
+            if(S.charAt(i) == 'I' && S.charAt(i+1) == 'O' && S.charAt(i+2) == 'I') {
+                count++;
+                i++;
+
+                if(count == N) {
+                    result++;
+                    count--;
                 }
-                if(match) count++;
             }
+
+            else
+                count = 0;
         }
 
-        System.out.println(count);
+        System.out.println(result);
     }
 }
