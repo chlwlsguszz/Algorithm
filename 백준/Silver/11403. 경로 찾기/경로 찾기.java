@@ -2,12 +2,13 @@ import java.io.*;
 import java.util.*;
 
 public class Main {
-    static ArrayList<ArrayList<Integer>> edges;
+
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         int N = Integer.parseInt(br.readLine());
 
-        edges = new ArrayList<>();
+        ArrayList<ArrayList<Integer>> edges = new ArrayList<>();
+        int[][] result = new int[N][N];
 
         for(int i=0;i<N;i++)
             edges.add(new ArrayList<>());
@@ -22,41 +23,34 @@ public class Main {
             }
         }
 
+        for(int i=0;i<N;i++) {
+            ArrayDeque<Integer> queue = new ArrayDeque<>();
+            boolean[] visited = new boolean[N];
+            queue.add(i);
+            while(!queue.isEmpty()) {
+                int x = queue.poll();
+                for(int y : edges.get(x)) {
+                    result[i][y] = 1;
+                    if(!visited[y]) {
+                        queue.offer(y);
+                        visited[y] = true;
+                    }
+                }
+            }
+        }
+
         StringBuilder sb = new StringBuilder();
 
         for(int i=0;i<N;i++) {
             for(int j=0;j<N;j++) {
-                if(bfs(i,j))
-                    sb.append(1+" ");
-                else
-                    sb.append(0+" ");
+                sb.append(result[i][j]);
+                if(j<N-1)
+                    sb.append(" ");
             }
-            sb.deleteCharAt(sb.length() -1);
             sb.append("\n");
         }
 
-        //sb.deleteCharAt(sb.length()-1);
-
         System.out.println(sb);
-    }
 
-    static boolean bfs(int i, int j) {
-         ArrayDeque<Integer> queue = new ArrayDeque<>();
-         queue.add(i);
-        boolean[] visited = new boolean[100];
-
-         while(!queue.isEmpty()) {
-             int x = queue.poll();
-             for(int y : edges.get(x)) {
-                 if(y == j)
-                     return true;
-                 if(!visited[y]) {
-                     queue.offer(y);
-                     visited[y] = true;
-                 }
-             }
-         }
-
-         return false;
     }
 }
